@@ -46,11 +46,10 @@ def train_val(model, optimizer, train_loader, test_loader,
                     .format(epoch, batch_idx+1, batch_num, trip_loss.data[0]))
         if (batch_idx+1) % test_interval == 0:
             threshlod, accuracy , mean_d_a_p, mean_d_a_n = best_test(model, test_loader)
-            logging('Test-T-A Epoch {:04d}-{:05d} accuracy: {:.04f} threshold: {:.05} \
-                    ap_mean: {:.04f}  an_mean {:.04f}'
+            logging('Test-T-A Epoch {:04d}-{:06d} accuracy: {:.04f} threshold: {:.05} ap_mean: {:.04f} an_mean: {:.04f}'
                     .format(epoch, batch_idx+1, accuracy, threshlod, mean_d_a_p, mean_d_a_n))
             cutoff = len(model.module.feat_model._modules)
-            model_name = 'models/epoch_{:04d}-{:05d}_feat.weights'.format(epoch, batch_idx+1)
+            model_name = 'models/epoch_{:04d}-{:06d}_feat.weights'.format(epoch, batch_idx+1)
             save_weights(model.module.feat_model, model_name, cutoff)
             logging('save model: {:s}'.format(model_name))
 

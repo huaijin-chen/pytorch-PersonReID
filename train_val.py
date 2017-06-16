@@ -19,14 +19,14 @@ args = parser.parse_args()
 print(args)
 DEBUG      = False
 margin     = 1.0
-lr         = 0.001
+lr         = 0.01
 momentum   = 0.9
 epoch_step = 5
 batch_size = 64
 #######################################
 is_cuda = True if torch.cuda.is_available() else False
 model = Net()
-model.load_weights('data/tiny-yolo.weights')
+model.load_weights('data/darknet.weights')
 print(model)
 if is_cuda:
     os.environ['CUDA_VISIBLE_DEVICES'] = args.gpus
@@ -35,7 +35,7 @@ if is_cuda:
 optimizer = optim.SGD(model.parameters(), lr=lr, momentum=momentum)
 
 #######################################
-image_root = '/data/chenchao/reid/data/'
+image_root = '/home/chenchao/ReID/'
 if DEBUG:
     train_list   = 'data/debug.txt'
     test_list    = 'data/test_debug.txt'
