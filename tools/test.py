@@ -121,7 +121,7 @@ def evaluation(model_path, test_list):
     model.load_full_weights(model_path)
     model.eval()
       
-    image_root = '/nfs/xiaohang/for_hongji/ReId_data/image/'
+    image_root = '/path/to/ReId_data/image/'
     if False:
         train_list = 'data/debug.txt'
         test_list = '../data/test_debug.txt'
@@ -138,11 +138,11 @@ if __name__ == '__main__':
     os.environ['CUDA_VISIBLE_DEVICES'] = '1'
     model = Net() 
     margin = 1.0
-    model_path = '../../exp3/models/epoch_0002_feat.weights'
+    model_path = 'path/to/model/file'
     test_list = '../data/open_val.txt'
-    image_root = '/home/chenchao/ReID/'
+    image_root = 'data/root'
     test_loader = data_loader(image_root, test_list, shuffle=True, batch_size=128)
-    thre, acc = best_test(model, test_loader, model_path, is_cuda=True)
+    thre, acc, _, _ = best_test(model, test_loader, model_path, is_cuda=True)
     print('best_threshold : {:.03f}, best_accuracy:{:.03f}'.format(thre, acc))
 
 
