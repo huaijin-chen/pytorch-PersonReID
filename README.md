@@ -25,7 +25,9 @@ python train_val.py --gpus 0,1,2,3
 ## Time Cost
 
 time cost in `4 TITAN X`
+
 batch size |cost(ms) / 1 TripletSample
+--- | ---
 64         | 1.31
 256        | 0.37
 
