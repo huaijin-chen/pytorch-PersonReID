@@ -8,7 +8,7 @@ This Project is for Person Re-identification using [Triplet Loss](https://arxiv.
 - [x] find best threshold for test set
 - [ ] more network structure 
 - [ ] more trick using in ReID
-- [ ] faster in multi-GPU
+- [x] faster in multi-GPU
 - [ ] load and save caffemode
 
 
