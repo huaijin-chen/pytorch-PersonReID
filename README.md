@@ -8,18 +8,26 @@ This Project is for Person Re-identification using [Triplet Loss](https://arxiv.
 - [x] find best threshold for test set
 - [ ] more network structure 
 - [ ] more trick using in ReID
-- [ ] faster data loader
 - [ ] faster in multi-GPU
 - [ ] load and save caffemode
+
+
 
 ## Training and validation
 
 1. creat triplet list file and put it in data/
-2. set `image_root`=your/images/path
+2. set `image_root`=`your/images/path`
 
 ```
 python train_val.py --gpus 0,1,2,3
 ```
+
+## Time Cost
+
+time cost in `4 TITAN X`
+batch size |cost(ms) / 1 TripletSample
+64         | 1.31
+256        | 0.37
 
 ## Reference
 
