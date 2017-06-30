@@ -10,6 +10,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 from torch.autograd import Variable
 from collections import OrderedDict
+from .l2normalize import L2Normalize
 import numpy as np
  
 class View(nn.Module):
@@ -60,6 +61,7 @@ class Net(nn.Module):
             ('fc1', nn.Linear(2048, 1024)),#add fc level
             ('relu6', nn.ReLU()),
             ('fc2', nn.Linear(1024, 512)),
+            ('l2normal', L2Normalize())
             #('relu7', nn.ReLU()),
         ]))
 

@@ -15,10 +15,11 @@ darknet
 .fuse*
 models/
 *.pyc
-log.txt
+*log.txt
 *train.txt
 *val.txt
 *.weights
+*.txt
 
 # OS Generated #
 .DS_Store*

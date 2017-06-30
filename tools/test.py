@@ -100,7 +100,7 @@ def best_test(model, _loader, model_path=None, is_cuda=True):
     end = max(mean_d_a_n, mean_d_a_p)
     best_thre = 0
     best_num = 0
-    thre_step = 0.1
+    thre_step = 0.05
 
     for val in torch.arange(start, end+thre_step, thre_step):
         num = (((d_a_p <= val).float()).sum() + (d_a_n > val).float().sum()).data[0]
