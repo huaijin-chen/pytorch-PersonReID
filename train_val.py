@@ -20,6 +20,7 @@ print(args)
 DEBUG      = False
 is_cuda    = True
 margin     = 1.0
+<<<<<<< HEAD
 lr         = 0.02
 momentum   = 0.9
 epoch_step = 5
@@ -27,13 +28,23 @@ batch_size = 256
 models_dir = 'models'
 if not os.path.exists(models_dir):
     os.makedirs(models_dir)
+=======
+lr         = 0.04
+momentum   = 0.9
+epoch_step = 5
+batch_size = 512
+>>>>>>> 44763a74cdcfb3786ec341f406d57e7d2f9ac1cf
 #######################################
 model = Net()
 model.load_weights('data/reid_96.86.weights')
 print(model)
 if is_cuda:
+<<<<<<< HEAD
     os.environ['CUDA_VISIBLE_DEVICES'] = args.gpus
     print('GPU ID: {:s}'.format(os.environ['CUDA_VISIBLE_DEVICES']))
+=======
+    os.environ['CUDA_VISIBLE_DEVICES'] = args.gpu
+>>>>>>> 44763a74cdcfb3786ec341f406d57e7d2f9ac1cf
     torch.cuda.manual_seed(args.seed)
     model = torch.nn.DataParallel(model).cuda()
 optimizer = optim.SGD(model.parameters(), lr=lr, momentum=momentum)
@@ -49,7 +60,11 @@ if DEBUG:
 else:
     train_list   = 'data/train.txt'
     test_list    = 'data/val.txt'
+<<<<<<< HEAD
     val_interval = 1000
+=======
+    val_interval = 500
+>>>>>>> 44763a74cdcfb3786ec341f406d57e7d2f9ac1cf
     log_interval = 100
 train_loader = data_loader(image_root, train_list, shuffle=True, batch_size=batch_size)
 test_loader  = data_loader(image_root, test_list,  shuffle=True, batch_size=batch_size)
