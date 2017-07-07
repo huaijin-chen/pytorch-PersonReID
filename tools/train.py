@@ -13,9 +13,10 @@ from torch.autograd import Variable
 from module.symbols import Net, save_weights
 from tools.utils import AverageMeter, logging
 from tools.test import best_test
+from module.TripletLoss import TripletMarginLoss  
 
 def train_val(model, optimizer, train_loader, test_loader,
-        epoch, margin=1.0, log_interval=100, test_interval=2000, is_cuda=True):
+        epoch, margin=1.0, use_ohem=False, log_interval=100, test_interval=2000, is_cuda=True):
     loss = AverageMeter()
     batch_num = len(train_loader)
     for batch_idx, (data_a, data_p,data_n, target) in enumerate(train_loader):
@@ -25,7 +26,9 @@ def train_val(model, optimizer, train_loader, test_loader,
             data_p = data_p.cuda()
             data_n = data_n.cuda()
             #target = target.cuda()
-        
+        #print('data_size = ',data_a.size())
+        #print(data_a)
+        #print('-----------------------------------------')
         data_a = Variable(data_a)
         data_p = Variable(data_p) 
         data_n = Variable(data_n)
@@ -36,7 +39,9 @@ def train_val(model, optimizer, train_loader, test_loader,
         out_p = model(data_p) 
         out_n = model(data_n)
 
-        trip_loss = nn.TripletMarginLoss(margin)(out_a, out_p, out_n)
+        triploss_layer = TripletMarginLoss(margin, use_ohem=use_ohem)
+        trip_loss = triploss_layer(out_a, out_p, out_n)
+
         trip_loss.backward()  
         optimizer.step()
 

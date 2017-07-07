@@ -8,7 +8,7 @@ This Project is for Person Re-identification using [Triplet Loss](https://arxiv.
 - [x] find best threshold for test set
 - [ ] more network structure 
 - [ ] more trick using in ReID
-- [ ] faster in multi-GPU
+- [x] faster in multi-GPU
 - [ ] load and save caffemode
 
 
@@ -29,7 +29,10 @@ time cost in `4 TITAN X`
 batch size |cost(ms) / 1 TripletSample
 --- | ---
 64         | 1.31
-256        | 0.37
+128        | 0.96
+256        | 0.35
+512        | 0.20
+1024       | 0.18
 
 ## Reference
 

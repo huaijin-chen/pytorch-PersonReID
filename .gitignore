@@ -19,6 +19,7 @@ log.txt
 *train.txt
 *val.txt
 *.weights
+data/*
 
 # OS Generated #
 .DS_Store*

@@ -31,10 +31,13 @@ def cos_distance(self, a, b):
     return torch.dot(a, b)/(torch.norm(a)*torch.norm(b))
 
 class TripletMarginLoss(nn.Module):
-    def __init__(self, margin, dist_type = 0):
+    def __init__(self, margin, use_ohem=False, ohem_bs=128, dist_type = 0):
         super(TripletMarginLoss, self).__init__()
         self.margin = margin
         self.dist_type = dist_type
+        self.use_ohem = use_ohem
+        self.ohem_bs = ohem_bs
+        #print('Use_OHEM : ',self.use_ohem)
 
     def forward(self, anchor, positive, negative):
         #eucl distance
@@ -49,7 +52,11 @@ class TripletMarginLoss(nn.Module):
             disp_n = cosine_similarity(anchor, negative)
     
         
-        dist_hing = torch.clamp(dist_n - dist_p + self.margin, min=0.0)
-        loss = torch.mean(dist_hinge)
+        dist_hinge = torch.clamp(dist_p - dist_n + self.margin, min=0.0)
+        if self.use_ohem:
+            v, idx = torch.sort(dist_hinge,descending=True)
+            loss = torch.mean(v[0:self.ohem_bs])
+        else:
+            loss = torch.mean(dist_hinge)
 
         return loss

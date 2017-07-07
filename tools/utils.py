@@ -8,6 +8,7 @@
 import torch
 from torchvision import datasets, transforms
 import dataset.dataset as dataset
+import dataset.transforms as trans
 import time
 
 def logging(message):
@@ -34,18 +35,24 @@ class AverageMeter(object):
         self.neg += neg
 
 
-def data_loader(image_root, data_list, shuffle=True, batch_size=64, workers=20, is_cuda=True):
+def data_loader(image_root, data_list, shuffle=True, batch_size=64, workers=20, is_cuda=True, is_visualization=False):
     kwargs = {'num_workers': workers, 'pin_memory': True} if is_cuda else {}
-    data_loader = torch.utils.data.DataLoader(
-            dataset.listDataset(
-                image_root, 
-                data_list, 
-                shuffle, 
-                transform=transforms.Compose([
-                transforms.ToTensor(),
-                transforms.Normalize((0.1307,),(0.3081,))
-                       ])),
-        batch_size=batch_size, shuffle=True, **kwargs)
+    transform=transforms.Compose([
+            trans.person_crop(ratio=(1, 0.75),crop_type=1),\
+            trans.scale(size=(64, 128)),\
+            transforms.ToTensor()
+            ])
+    preid = dataset.listDataset(
+            image_root, 
+            data_list,
+            shuffle,
+            transform=transform, 
+            is_visualization=is_visualization)
+
+    data_loader = torch.utils.data.DataLoader(preid,
+            batch_size=batch_size, 
+            shuffle=True, 
+            **kwargs)
 
     return data_loader
 
