@@ -3,6 +3,7 @@
 *.csv
 *.out
 *.png
+*.jpg
 caffe/
 grasp/
 images/
